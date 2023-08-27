@@ -41,14 +41,16 @@ export default function Home() {
   });
 
   return (
-    <main className="flex flex-col">
-      <h1 className="text-3xl font-bold mt-12">Welcome to UnscriptedFiasco</h1>
-      <section className="py-10">
+    <main className="flex flex-col w-full h-screen justify-start items-center">
+      <h1 className="text-2xl md:text-3xl font-bold ">
+        Welcome to UnscriptedFiasco
+      </h1>
+      <section className="p-4 w-full md:w-1/2 ">
         <h2 className="text-2xl font-bold">Latest Blogs</h2>
-        <div className="py-2">
+        <div className="">
           {blogs.map((blog) => (
             <Link href={"/posts/" + blog.slug} passHref key={blog.slug}>
-              <div className="py-2 flex justify-between align-middle gap-2">
+              <div className=" flex justify-between align-middle gap-2">
                 <div>
                   <h3 className="text-lg font-bold">{blog.meta.title}</h3>
                   <p className="text-gray-400">{blog.meta.description}</p>

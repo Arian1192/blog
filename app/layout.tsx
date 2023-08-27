@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
-
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
@@ -29,11 +28,11 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="bg-[#000000ff] text-white" style={styles}>
-      <Navbar />
-      <div className="max-w-3xl mx-auto py-20 px-4 flex flex-col min-h-screen">
-        <div className={inter.className + "flex-grow"}>{children}</div>
-      </div>
-      <Footer />
+      <body className={inter.className}>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
