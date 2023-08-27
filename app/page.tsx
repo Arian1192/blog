@@ -47,18 +47,21 @@ export default function Home() {
       </h1>
       <section className="p-4 w-full md:w-1/2 ">
         <h2 className="text-2xl font-bold">Latest Blogs</h2>
-        <div className="">
+        <div className="mt-14">
           {blogs.map((blog) => {
             return (
               <Link href={"/posts/" + blog.slug} passHref key={blog.slug}>
-                <div className=" flex justify-between align-middle gap-2">
-                  <div>
-                    <h3 className="text-lg font-bold">{blog.meta.title}</h3>
-                    <p className="text-gray-400">{blog.meta.description}</p>
+                <div className="relative">
+                  <div className=" flex justify-between  border border-zinc-600 rounded-md bg-black p-4 relative z-20">
+                    <div>
+                      <h3 className="text-lg font-bold">{blog.meta.title}</h3>
+                      <p className="text-gray-400">{blog.meta.description}</p>
+                    </div>
+                    <div className="my-auto text-gray-400">
+                      <p>{blog.meta.date}</p>
+                    </div>
                   </div>
-                  <div className="my-auto text-gray-400">
-                    <p>{blog.meta.date}</p>
-                  </div>
+                  <div className="absolute -inset-1 rounded-md blur-xl bg-gradient-to-br from-pink-500 via-cyan-500 to-violet-500 z-10"></div>
                 </div>
               </Link>
             );
@@ -68,3 +71,16 @@ export default function Home() {
     </main>
   );
 }
+
+// <div className="relative">
+// <div className="bg-black p-4 flex justify-between align-middle gap-2  border border-gray-400 rounded-md  relative z-2">
+//   <div>
+//     <h3 className="text-lg font-bold">{blog.meta.title}</h3>
+//     <p className="text-gray-400">{blog.meta.description}</p>
+//   </div>
+//   <div className="my-auto text-gray-400">
+//     <p>{blog.meta.date}</p>
+//   </div>
+// </div>
+// <div className="absolute -inset-1 rounded-md blur-md bg-gradient-to-br from-pink-500 via-cyan-500 to-violet-500 z-10"></div>
+// </div>
