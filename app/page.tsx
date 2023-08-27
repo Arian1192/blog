@@ -58,7 +58,7 @@ export default function Home() {
                       <p className="text-gray-400">{blog.meta.description}</p>
                     </div>
                     <div className="my-auto text-gray-400">
-                      <p>{blog.meta.date}</p>
+                      <p className="text-xs md:text-base">{blog.meta.date}</p>
                     </div>
                   </div>
                   <div className="absolute -inset-1 rounded-md blur-xl bg-gradient-to-br from-pink-500 via-cyan-500 to-violet-500 z-10"></div>
@@ -72,15 +72,3 @@ export default function Home() {
   );
 }
 
-// <div className="relative">
-// <div className="bg-black p-4 flex justify-between align-middle gap-2  border border-gray-400 rounded-md  relative z-2">
-//   <div>
-//     <h3 className="text-lg font-bold">{blog.meta.title}</h3>
-//     <p className="text-gray-400">{blog.meta.description}</p>
-//   </div>
-//   <div className="my-auto text-gray-400">
-//     <p>{blog.meta.date}</p>
-//   </div>
-// </div>
-// <div className="absolute -inset-1 rounded-md blur-md bg-gradient-to-br from-pink-500 via-cyan-500 to-violet-500 z-10"></div>
-// </div>

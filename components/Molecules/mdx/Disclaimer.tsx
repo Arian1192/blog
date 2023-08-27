@@ -6,9 +6,9 @@ interface DisclaimerProps {
 
 export const Disclaimer = ({ title, textDisclamer }: DisclaimerProps) => {
   return (
-    <div className="bg-red-500 mt-2 px-10 py-5 rounded-lg">
-      <h4 className="text-left text-white text-2xl">{title}</h4>
-      <p className="text-sm">{textDisclamer}</p>
+    <div className="bg-red-500 p-5 rounded-lg px-10">
+      <p className="text-left text-white text-3xl ">{title}</p>
+      <p className="text-sm text-white">{textDisclamer}</p>
     </div>
   );
 };
