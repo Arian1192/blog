@@ -6,7 +6,7 @@ export const Footer = () => {
       <ListLinks />
       <div className="w-full">
         <p className="text-white text-center">
-          Made with <span className="text-red-500">❤</span> by Arian Collazo
+          Made with <span className="text-red-500">❤</span> by Arian Collaso
         </p>
       </div>
     </div>
