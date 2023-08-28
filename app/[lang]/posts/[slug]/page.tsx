@@ -1,10 +1,11 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { Disclaimer } from "@/components/Molecules/mdx/Disclaimer";
+import { Disclaimer } from "../../../../components/Molecules/mdx/Disclaimer";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 export async function generateStaticParams() {
+  
   const posts: string[] = fs.readdirSync(path.join("blog"));
   const paths = posts.map((post) => ({
     slug: post.replace(".mdx", ""),

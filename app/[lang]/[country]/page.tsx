@@ -13,7 +13,11 @@ type Post = {
   slug: string;
 };
 
-export default function Home() {
+export default function Home({
+  params,
+}: {
+  params: { lang: string; country: string };
+}) {
   const blogDir = "blog";
   const posts: string[] = fs.readdirSync(blogDir);
 
@@ -71,4 +75,3 @@ export default function Home() {
     </main>
   );
 }
-
