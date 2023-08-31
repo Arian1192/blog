@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const defaultLocale = "es-ES";
+const defaultLocale = "es-ES"; 
 let locales = ["es-Es","en-US" ];
 
 type PathnameLocale = {
@@ -32,7 +32,11 @@ const getLocalePartsFrom = ({ pathname, locale }: LocaleSource) => {
 
 export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
-  
+
+    // Saltamos cualquier ruta que este dentro de assets,
+    if (pathname.match(/\/(assets|public|_next|img)\//)) {
+    return NextResponse.next();
+  }
     const defaultLocaleParts = getLocalePartsFrom({ locale: defaultLocale });
     const currentPathnameParts = getLocalePartsFrom({ pathname });
   
@@ -77,6 +81,5 @@ export function middleware(request: NextRequest) {
   
   
   export const config = {
-    // do not localize next.js paths
       matcher: ["/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)",],
     };

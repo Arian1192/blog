@@ -18,14 +18,15 @@ export default function Home({
 }: {
   params: { lang: string; country: string };
 }) {
-  const blogDir = "blog";
-  const posts: string[] = fs.readdirSync(blogDir);
+  const { lang, country } = params;
 
-  const blogs: Post[] = posts.map((post) => {
-    const postContent = fs.readFileSync(path.join(blogDir, post), "utf-8");
+  const dirBlog = lang && country === "es" ? "ESblog" : "ENblog";
+  
+  const Post: string[] = fs.readdirSync(dirBlog);
+
+  const blogs: Post[] = Post.map((post) => {
+    const postContent = fs.readFileSync(path.join(dirBlog, post), "utf-8");
     const { data: frontMatter } = matter(postContent);
-
-    // Asegúrate de que 'frontMatter' contenga las propiedades esperadas
     if (
       typeof frontMatter.title !== "string" ||
       typeof frontMatter.description !== "string" ||
@@ -54,7 +55,7 @@ export default function Home({
         <div className="mt-14">
           {blogs.map((blog) => {
             return (
-              <Link href={"/posts/" + blog.slug} passHref key={blog.slug}>
+              <Link href={`/posts/${blog.slug}`} passHref key={blog.slug}>
                 <div className="relative">
                   <div className=" flex justify-between  border border-zinc-600 rounded-md bg-black p-4 relative z-20">
                     <div>
@@ -75,3 +76,8 @@ export default function Home({
     </main>
   );
 }
+
+//TODO: Comprobar que el link que pasamos metamos los params de lang y country
+//en el middleware si el idioma es el mismo que el idioma por defecto que quite el lang del link y si el pais es el mismo que el pais por defecto que quite el pais del link
+//para evitar problemas de redireccionamiento si el usuario selecciona otro local
+// la url debe ser completa.
