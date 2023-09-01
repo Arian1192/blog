@@ -77,7 +77,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
     const defaultLocaleParts = getLocalePartsFrom({ locale: defaultLocale });
-    const localeCookie = request.cookies.NEXT_LOCALE;
+
     const currentPathnameParts = getLocalePartsFrom({ pathname });
 
     console.log(currentPathnameParts, " este es el currentPathnameParts"
