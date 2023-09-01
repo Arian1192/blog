@@ -49,10 +49,10 @@ export default function Home({
   return (
     <main className="flex flex-col w-full h-screen justify-start items-center ">
       <h1 className="text-2xl md:text-3xl font-bold ">
-        Welcome to UnscriptedFiasco
+        {lang === "es" ? "Bienvenido a Unscripted Fiasco" : "Welcome to Unscripted Fiasco"}
       </h1>
       <section className="p-4 w-full md:w-1/2 ">
-        <h2 className="text-2xl font-bold">Latest Blogs</h2>
+        <h2 className="text-2xl font-bold">{lang === "es" ? "Ultimas entradas al blog" : "Last blog entries"}</h2>
         <div className="mt-14">
           {blogs.map((blog) => {
             return (
