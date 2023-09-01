@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import langParser from "accept-language-parser";
-import {parse as parseCookie} from "cookie";
-import { parse } from "path";
 
-let defaultLocale = "es-ES";  // esto no deberia ser un string sino el resultado de una funcion que obtenga el locale del navegador
+const defaultLocale = "es-ES";  // esto no deberia ser un string sino el resultado de una funcion que obtenga el locale del navegador
 let locales = ["es-Es","en-US" ];
 
 type PathnameLocale = {
@@ -79,24 +77,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
     const defaultLocaleParts = getLocalePartsFrom({ locale: defaultLocale });
-    // console.log(defaultLocaleParts, " Estas son las partes del locale por defecto")
-    // const cookies = parseCookie(request.headers.get("Cookie") || "")
-    // const localeCookie = cookies.NEXT_LOCALE;
+    const localeCookie = request.cookies.NEXT_LOCALE;
     const currentPathnameParts = getLocalePartsFrom({ pathname });
 
-    // if (localeCookie){
-    //   const localeCookiesParts = getLocalePartsFrom({ locale: localeCookie });
-    //   if(localeCookiesParts.lang !== currentPathnameParts.lang){
-    //     return NextResponse.rewrite(
-    //       new URL(
-    //         `/${localeCookiesParts.lang}/${localeCookiesParts.country}${pathname}`,
-    //         request.url
-    //       )
-    //     );
-    //   }else{
-    //     return NextResponse.next();
-    //   }
-    // }
+    console.log(currentPathnameParts, " este es el currentPathnameParts"
+    , defaultLocaleParts, " este es el defaultLocaleParts")
+    
+  
     const pathnameIsMissingValidLocale = locales.every((locale) => {
       
         const localeParts = getLocalePartsFrom({ locale });
