@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs"
 import path from "path";
 import matter from "gray-matter";
 import { Disclaimer } from "@/components/Molecules/mdx/Disclaimer";
@@ -10,6 +10,8 @@ export async function generateStaticParams({
   params: { lang: string; country: string };
 }) {
   const { lang, country } = params
+
+  console.log(lang, country)
 
   const dirBlog = lang && country === "es" ? "ESblog" : "ENblog";
 

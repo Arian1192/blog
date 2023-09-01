@@ -7,6 +7,9 @@ import { Inter } from "next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
+// import {CookieContextProvider} from "@/contexts/CookieContext"
+
+
 config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,13 +38,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="bg-[#000000ff] text-white" style={bodyStyles}>
-      
-      <body className={inter.className}>
-        <Navbar />
-        <div style={contentContainerStyles}>{children}</div>
-        <Footer />
-      </body>
-    </html>
+    // <CookieContextProvider>
+      <html lang="en" className="bg-[#000000ff] text-white" style={bodyStyles}>
+        <body className={inter.className}>
+          <Navbar />
+          <div style={contentContainerStyles}>{children}</div>
+          <Footer />
+        </body>
+      </html>
+    // </CookieContextProvider>
   );
 }
