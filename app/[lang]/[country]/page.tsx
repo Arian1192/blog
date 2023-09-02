@@ -26,24 +26,32 @@ export default function Home({
   const Post: string[] = fs.readdirSync(dirBlog);
 
   const blogs: Post[] = Post.map((post) => {
-    const postContent = fs.readFileSync(path.join(dirBlog, post), "utf-8");
-    const { data: frontMatter } = matter(postContent);
-    if (
-      typeof frontMatter.title !== "string" ||
-      typeof frontMatter.description !== "string" ||
-      typeof frontMatter.date !== "string"
-    ) {
-      throw new Error("Los metadatos no tienen la estructura esperada.");
-    }
 
-    return {
-      meta: {
-        title: frontMatter.title,
-        description: frontMatter.description,
-        date: frontMatter.date,
-      },
-      slug: post.replace(".mdx", ""),
-    };
+    try {
+      const postContent = fs.readFileSync(path.join(dirBlog, post), "utf-8");
+      const { data: frontMatter } = matter(postContent);
+      if (
+        typeof frontMatter.title !== "string" ||
+        typeof frontMatter.description !== "string" ||
+        typeof frontMatter.date !== "string"
+      ) {
+        throw new Error("Los metadatos no tienen la estructura esperada.");
+      }
+      return {
+        meta: {
+          title: frontMatter.title,
+          description: frontMatter.description,
+          date: frontMatter.date,
+        },
+        slug: post.replace(".mdx", ""),
+      };
+    } catch (e) {
+      console.error(`Error al leer el archivo ${post}: ${e}`);
+    }
+    
+   
+
+    
   });
 
   return (
