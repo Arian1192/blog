@@ -26,7 +26,6 @@ export default function Home({
   const Post: string[] = fs.readdirSync(dirBlog);
 
   const blogs: Post[] = Post.map((post) => {
-
     try {
       const postContent = fs.readFileSync(path.join(dirBlog, post), "utf-8");
       const { data: frontMatter } = matter(postContent);
@@ -37,6 +36,7 @@ export default function Home({
       ) {
         throw new Error("Los metadatos no tienen la estructura esperada.");
       }
+  
       return {
         meta: {
           title: frontMatter.title,
@@ -47,12 +47,19 @@ export default function Home({
       };
     } catch (e) {
       console.error(`Error al leer el archivo ${post}: ${e}`);
+      
+      // Devolver un objeto de reemplazo en caso de error
+      return {
+        meta: {
+          title: "Título predeterminado",
+          description: "Descripción predeterminada",
+          date: "Fecha predeterminada",
+        },
+        slug: "slug-predeterminado",
+      };
     }
-    
-   
-
-    
   });
+  
 
   return (
     <main className="flex flex-col w-full h-screen justify-start items-center ">
