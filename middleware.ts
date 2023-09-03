@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import langParser from "accept-language-parser";
 
-const defaultLocale = "es-ES";  // esto no deberia ser un string sino el resultado de una funcion que obtenga el locale del navegador
+const defaultLocale = "es-Es";  // esto no deberia ser un string sino el resultado de una funcion que obtenga el locale del navegador
 let locales = ["es-Es","en-US" ];
 
 type PathnameLocale = {
@@ -20,6 +20,7 @@ type LocaleSource = PathnameLocale | ISOLocale;
 const findBestMatchingLocale = (acceptLangHeader: string) => {
   // parse the locales acceptable in the header, and sort them by priority (q)
   const parsedLangs = langParser.parse(acceptLangHeader);
+  console.log(parsedLangs)
 
   // find the first locale that matches a locale in our list
   for (let i = 0; i < parsedLangs.length; i++) {
@@ -109,13 +110,26 @@ export function middleware(request: NextRequest) {
   });
 
   if (pathnameIsMissingValidLocale) {
-    // rewrite it so next.js will render `/` as if it was `/es/us` 
-    return NextResponse.rewrite(
-      new URL(
-        `/${defaultLocaleParts.lang}/${defaultLocaleParts.country}${pathname}`,
-        request.url
-      )
-    );
+
+
+    const matchedLocale =findBestMatchingLocale(request.headers.get("accept-language")!);
+
+    if(matchedLocale !== defaultLocale){
+      const matchedLocaleParts = getLocalePartsFrom({ locale: matchedLocale });
+      return NextResponse.redirect(
+        new URL(
+          `/${matchedLocaleParts.lang}/${matchedLocaleParts.country}${pathname}`,
+          request.url
+        )
+      );
+    }else{
+        return NextResponse.rewrite(
+          new URL(
+            `/${defaultLocaleParts.lang}/${defaultLocaleParts.country}${pathname}`,
+            request.url
+          )
+        );  
+    }
   }
 }
 
