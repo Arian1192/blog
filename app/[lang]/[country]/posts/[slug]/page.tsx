@@ -13,7 +13,7 @@ export async function generateStaticParams({
 
   console.log(lang, country);
 
-  const dirBlog = lang && country === "es" ? "esblog" : "enblog";
+  const dirBlog = lang && country === "es" ? "blog" : "enblog";
 
   const posts: string[] = await fs.readdir(path.join(dirBlog));
 
@@ -27,7 +27,7 @@ export async function generateStaticParams({
  async function getPost(params: { lang: string; country: string; slug: string }) {
   const { lang, country } = params;
 
-  const dirBlog = lang && country === "es" ? "esblog" : "enblog";
+  const dirBlog = lang && country === "es" ? "blog" : "enblog";
   const markdownFile = fs.readFile(
     path.join(dirBlog, params.slug + ".mdx"),
     "utf-8"
