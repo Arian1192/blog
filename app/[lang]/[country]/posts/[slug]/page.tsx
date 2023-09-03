@@ -15,7 +15,7 @@ export async function generateStaticParams({
 
   const dirBlog = lang && country === "es" ? "blog" : "enblog";
 
-  const posts: string[] = fs.readdirSync(path.join(dirBlog));
+  const posts: string[] = fs.readdirSync(path.join(process.cwd(), dirBlog));
 
   const paths = posts.map((post) => ({
     slug: post.replace(".mdx", ""),
