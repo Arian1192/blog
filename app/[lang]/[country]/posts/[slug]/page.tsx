@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import fs from "fs"
 import path from "path";
 import matter from "gray-matter";
 import { Disclaimer } from "@/components/Molecules/mdx/Disclaimer";
@@ -9,13 +9,13 @@ export async function generateStaticParams({
 }: {
   params: { lang: string; country: string };
 }) {
-  const { lang, country } = params;
+  const { lang, country } = params
 
-  console.log(lang, country);
+  console.log(lang, country)
 
   const dirBlog = lang && country === "es" ? "blog" : "enblog";
 
-  const posts: string[] = await fs.readdir(path.join(dirBlog));
+  const posts: string[] = fs.readdirSync(path.join(dirBlog));
 
   const paths = posts.map((post) => ({
     slug: post.replace(".mdx", ""),
@@ -24,16 +24,16 @@ export async function generateStaticParams({
   return paths;
 }
 
- async function getPost(params: { lang: string; country: string; slug: string }) {
+function getPost(params: { lang: string; country: string; slug: string }) {
   const { lang, country } = params;
 
   const dirBlog = lang && country === "es" ? "blog" : "enblog";
-  const markdownFile = fs.readFile(
+  const markdownFile = fs.readFileSync(
     path.join(dirBlog, params.slug + ".mdx"),
     "utf-8"
   );
 
-  const { data: frontMatter, content } =  matter(await markdownFile);
+  const { data: frontMatter, content } = matter(markdownFile);
   return {
     frontMatter,
     params,
@@ -41,8 +41,8 @@ export async function generateStaticParams({
   };
 }
 
-export default async function Post({ params }: any) {
-  const props = await getPost(params);
+export default function Post({ params }: any) {
+  const props = getPost(params);
   return (
     <article className="prose prose-sm md:prose-base lg:prose-lg prose-slate !prose-invert mx-auto p-6 pb-64">
       <h1>{props.frontMatter.title}</h1>
