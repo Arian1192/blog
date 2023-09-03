@@ -21,7 +21,7 @@ export default function Home({
   const { lang, country } = params;
   console.log(lang, country, "Estos son los params");
 
-  const dirBlog = lang && country === "es" ? "ESblog" : "ENblog";
+  const dirBlog = lang && country === "es" ? "esblog" : "enblog";
 
   const Post: string[] = fs.readdirSync(dirBlog);
 
