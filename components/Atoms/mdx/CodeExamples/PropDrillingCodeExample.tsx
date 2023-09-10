@@ -85,6 +85,13 @@ export const PropDrillingCodeExample = (props: CodeExampleProps) => {
               );
             }
           }
+          if (i === 13) {
+            for (let x = 0; x < code.children[i].children.length; x++) {
+              code.children[i].children[x].classList.add(
+                "nth-child" + i + "-" + x
+              );
+            }
+          }
         }
       }
 
