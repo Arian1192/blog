@@ -1,0 +1,90 @@
+---
+title: Props... Props everywhere.
+date: "10th September 2023"
+description: What is Prop and Prop Drilling?
+---
+
+
+### Monday, September 4, 2023.
+
+Are you ready to delve into the intriguing world of property transfer between components? This was the question I asked myself the first time I witnessed properties moving back and forth, as if it were technological black magic.
+![PropDrilling Meme](/img/prop-meme.jpg)
+
+
+Over time, one comes to understand the simplicity that underlies the act of passing properties between components and how easy it can be to complicate things if property and variable names, among others, are not properly chosen.
+
+Put simply and sarcasm aside, props passing refers to the action of sending information from a main component to one or more secondary components, allowing the latter to use it in their operation or pass it to even lower components, in what is known as "prop drilling".
+
+It is important to note that prop drilling in itself is not necessarily a bad practice, but it can become technologically inefficient, especially in large or complex applications. This is because it involves going through several levels of components to transfer a single piece of data.
+
+## Disadvantages include:
+
+**Increased complexity:** As the number of component nesting layers increases, it becomes increasingly complicated to track the source of the information.
+
+**Difficulty in maintenance:** If you need to make changes to the structure of your components or the data being transmitted, it can be tedious to update all the component layers involved in the prop drilling process.
+
+**Increased likelihood of errors:** As you pass props through multiple layers, you increase the likelihood of making typos or logic errors in your code.
+
+In summary, prop drilling is not inherently problematic, but we must be aware of its limitations. This is especially important in large applications, where it is critical to maintain clean, maintainable code.
+
+
+
+<PropDrillingCodeExample 
+language='jsx'
+heading={"Prop drilling example"}
+config={{
+    animate: true,
+    showProgress: true,
+    showButtons: ['next', 'previous'],
+  }}
+buttonText="Click to see the magic"
+id={"propdrilling-example"}
+client:load
+tour={
+    [
+          { element: '#propdrilling-example', popover: { title: 'Propdrilling example', description: 'Here you can follow step by step how to understand the propdrilling step', side: "left", align: 'start' }},
+          { element: '.nth-child0', popover: { title: 'Parent component', description: 'This is the component that is going to pass the properties to the children', side: "bottom", align: 'end' }},
+          { element: '.nth-child1', popover: { title: 'Property we want to pass to the child', description: 'This is the property we want to pass to our Child or ChildComponent', side: "left", align: 'end' }},
+          { element: '.nth-child3', popover: { title: 'We return the component by passing it the prop', description: 'ChildComponent is now able to access the value of proud', side: "left", align: 'end' }},
+          { element: '.nth-child7', popover: {title: 'ChildComponent', description: 'This is the component that will first receive the properties of the higher order Element and just pass them down, ridiculous right ?', side: "left" , align: 'start'}},
+          { element: '.nth-child7-9', popover: {title: 'We collect the prop', description: 'This is how our child component can collect the properties that comes from the parent', side: "left", align: 'start'}},
+          { element: '.nth-child9', popover: {title: 'We pass to OutherComponent the prop isProud', description: 'Here we can see how a propdrilling is generated and how dangerous it can become due to the use of bad variables for example', side: "top", align: 'start'}},
+          { element: '.nth-child13-8', popover: {title: 'We pick up the prop as before', description: 'We use again the same technique to pick up the property', side: "left", align: 'start'}},
+          { element: '.nth-child16', popover: {title: 'If isProud is true', description: 'We render a paragraph that says this proud', side: "top", align: 'start'}},
+          { element: '.nth-child17', popover: {title: 'On the contrary if false', description: 'We render another paragraph completely different', side: "top", align: 'start'}},
+          { element: '#propdrilling-example', popover: { title: 'This is the concept of prop drilling', description: 'It is nothing more than passing a property between components so that it can be refused.', side: "left", align: 'start'}},
+    ]
+}
+>
+
+
+```
+const ParentComponent = () => {
+    const proud = true
+    return(
+        <ChildComponent isProud={proud} />
+    )
+}
+
+const ChildComponent = ({isProud}) => {
+    return(
+        <OtherComponent isProud={isProud}/>
+    )
+}
+
+const OtherComponent =({isProud}) => {
+  return (
+    <>
+      {isProud && <p>Esta orgulloso</p>}
+      {!isProud && <p>Debo de buscarle un nuevo trabajo</p>}
+    </>
+  )
+}
+```
+</PropDrillingCodeExample>
+
+I hope this code example will clarify some doubts about this topic for all those people who are starting with React.
+As an alternative we could use API Context to have a "Global Context" and not depend on passing props between components, also we can make use of customHooks to generate a simple and precise logic and work in a more comfortable way with our components.
+
+Hope to see you in the next one!
+
