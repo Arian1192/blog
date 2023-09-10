@@ -7,8 +7,29 @@ description: ¿Que es una Prop y el Prop Drilling?
 
 ### Lunes 4 de Septiembre de 2023.
 
+¿Estás listo para adentrarte en el intrigante mundo de la transferencia de propiedades entre componentes? Esta fue la pregunta que me hice la primera vez que presencié cómo las propiedades se movían de un lado a otro, como si se tratara de magia negra tecnológica.
+![PropDrilling Meme](/img/prop-meme.jpg)
 
-<CodeExample 
+
+Con el tiempo, uno llega a comprender la simplicidad que subyace en el acto de transmitir propiedades entre componentes y cuán fácil puede ser complicar las cosas si no se eligen adecuadamente los nombres de las propiedades y variables, entre otros.
+
+Dicho de manera simple y dejando de lado el sarcasmo, el paso de props se refiere a la acción de enviar información desde un componente principal a uno o varios componentes secundarios, permitiendo que estos últimos la utilicen en su funcionamiento o la pasen a componentes aún más bajos, en lo que se conoce como "prop drilling".
+
+Es importante destacar que el prop drilling en sí no es necesariamente una mala práctica, pero puede volverse tecnológicamente ineficiente, especialmente en aplicaciones extensas o complejas. Esto se debe a que implica atravesar varios niveles de componentes para transferir un simple dato.
+
+## Entre las desventajas que encontramos se incluyen:
+
+**Aumento de la complejidad:** A medida que se incrementa el número de niveles de anidación de componentes, se vuelve cada vez más complicado rastrear la fuente de la información.
+
+**Dificultad en el mantenimiento:** Si necesitas realizar cambios en la estructura de tus componentes o en los datos que se transmiten, puede resultar tedioso actualizar todas las capas de componentes involucradas en el proceso de prop drilling.
+
+**Mayor probabilidad de errores:** Conforme se pasan props a través de múltiples niveles, se aumenta la probabilidad de cometer errores tipográficos o de lógica en el código.
+
+En resumen, el prop drilling no es inherentemente problemático, pero debemos ser conscientes de sus limitaciones. Esto es especialmente importante en aplicaciones extensas, donde es fundamental mantener un código limpio y fácil de mantener.
+
+
+
+<PropDrillingCodeExample 
 language='jsx'
 heading={"Prop drilling example"}
 config={{
@@ -22,8 +43,11 @@ tour={
     [
           { element: '#propdrilling-example', popover: { title: 'Ejemplo de propdrilling', description: 'Aqui vas a poder seguir paso a paso como entender el paso de props', side: "left", align: 'start' }},
           { element: '.nth-child0', popover: { title: 'Componente padre', description: 'Este es el componente que va a pasar las propiedades a los hijos', side: "bottom", align: 'end' }},
-          { element: '.nth-child1', popover: { title: 'Propiedad que queremos pasar al hijo', description: 'Esta propiedad la queremos pasar a nuestro componente ChildComponent', side: "left", align: 'end' }},
-          { element: '.nth-child3', popover: { title: 'Devolvemos el componente con la propiedad que queremos que reciba', description: 'Como se aprecia pasamos una prop isProud con el valor de proud ', side: "left", align: 'end' }},
+          { element: '.nth-child1', popover: { title: 'Propiedad que queremos pasar al hijo', description: 'Esta es la propiedad que queremos pasar a nuestro componente Hijo o ChildComponent', side: "left", align: 'end' }},
+          { element: '.nth-child3', popover: { title: 'Devolvemos el componente pasandole la prop', description: 'ChildComponent ahora es capaz de acceder al valor de proud', side: "left", align: 'end' }},
+          { element: '.nth-child7', popover: {title: 'Componente hijo', description: 'Este es el componente que primero va a recibir las propiedades del Elemento de orden superior y solo va a pasarlas mas para abajo, ridiculo verdad ?', side: "left" , align: 'start'}},
+          { element: '.nth-child7-9', popover: {title: 'Recogemos la prop', description: 'Así es como nuestro componente hijo puede recoger las propiedades que le viene del padre', side: "left", align: 'start'}},
+          { element: '.nth-child9', popover: {title: 'Pasamos a OutherComponent la prop isProud', description: 'Aquí podemos ver como se genera un propdrilling y lo peligroso que puede llegar a ser debido al uso de malas variables por ejemplo', side: "top", align: 'start'}}          
     ]
 }
 >
@@ -35,5 +59,20 @@ const ParentComponent = () => {
         <ChildComponent isProud={proud} />
     )
 }
+
+const ChildComponent = ({isProud}) => {
+    return(
+        <OtherComponent isProud={isProud}/>
+    )
+}
+
+const OtherComponent =({isProud}) => {
+  return (
+    <>
+      {isProud && <p>Esta orgulloso</p>}
+      {!isProud && <p>Debo de buscarle un nuevo trabajo</p>}
+    </>
+  )
+}
 ```
-</CodeExample>
+</PropDrillingCodeExample>

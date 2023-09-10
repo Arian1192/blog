@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { Disclaimer } from "@/components/Molecules/mdx/Disclaimer";
 import { SyntaxHighlighterCode } from "@/components/Atoms/mdx/SyntaxHighlighterCode";
-import { CodeExample } from "@/components/Atoms/mdx/CodeExamples/CodeExample";
+import { PropDrillingCodeExample } from "@/components/Atoms/mdx/CodeExamples/PropDrillingCodeExample";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 export async function generateStaticParams({
@@ -53,7 +53,7 @@ export default function Post({ params }: any) {
         components={{
           Disclaimer,
           SyntaxHighlighterCode,
-          CodeExample,
+          PropDrillingCodeExample,
         }}
       />
     </article>
