@@ -2,6 +2,8 @@ import fs from "fs"
 import path from "path";
 import matter from "gray-matter";
 import { Disclaimer } from "@/components/Molecules/mdx/Disclaimer";
+import { SyntaxHighlighterCode } from "@/components/Atoms/mdx/SyntaxHighlighterCode";
+import { CodeExample } from "@/components/Atoms/mdx/CodeExamples/CodeExample";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 export async function generateStaticParams({
@@ -9,9 +11,9 @@ export async function generateStaticParams({
 }: {
   params: { lang: string; country: string };
 }) {
-  const { lang, country } = params
+  const { lang, country } = params;
 
-  console.log(lang, country)
+  console.log(lang, country);
 
   const dirBlog = lang && country === "es" ? "blog" : "enblog";
 
@@ -46,7 +48,14 @@ export default function Post({ params }: any) {
   return (
     <article className="prose prose-sm md:prose-base lg:prose-lg prose-slate !prose-invert mx-auto p-6 pb-64">
       <h1>{props.frontMatter.title}</h1>
-      <MDXRemote source={props.content} components={{ Disclaimer }} />
+      <MDXRemote
+        source={props.content}
+        components={{
+          Disclaimer,
+          SyntaxHighlighterCode,
+          CodeExample,
+        }}
+      />
     </article>
   );
 }

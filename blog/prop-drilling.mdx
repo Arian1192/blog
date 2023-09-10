@@ -1,0 +1,39 @@
+---
+title: Props... Props por todos lados.
+date: "3th September 2023"
+description: ¿Que es una Prop y el Prop Drilling?
+---
+
+
+### Lunes 4 de Septiembre de 2023.
+
+
+<CodeExample 
+language='jsx'
+heading={"Prop drilling example"}
+config={{
+    animate: true,
+    showProgress: true,
+    showButtons: ['next', 'previous'],
+  }}
+id={"propdrilling-example"}
+client:load
+tour={
+    [
+          { element: '#propdrilling-example', popover: { title: 'Ejemplo de propdrilling', description: 'Aqui vas a poder seguir paso a paso como entender el paso de props', side: "left", align: 'start' }},
+          { element: '.nth-child0', popover: { title: 'Componente padre', description: 'Este es el componente que va a pasar las propiedades a los hijos', side: "bottom", align: 'end' }},
+          { element: '.nth-child1', popover: { title: 'Propiedad que queremos pasar al hijo', description: 'Esta propiedad la queremos pasar a nuestro componente ChildComponent', side: "left", align: 'end' }},
+          { element: '.nth-child3', popover: { title: 'Devolvemos el componente con la propiedad que queremos que reciba', description: 'Como se aprecia pasamos una prop isProud con el valor de proud ', side: "left", align: 'end' }},
+    ]
+}
+>
+
+```
+const ParentComponent = () => {
+    const proud = true
+    return(
+        <ChildComponent isProud={proud} />
+    )
+}
+```
+</CodeExample>
